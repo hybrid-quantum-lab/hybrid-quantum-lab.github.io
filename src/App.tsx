@@ -28,6 +28,10 @@ const researchFigs = import.meta.glob('../research-figs/*', { eager: true, impor
 const figByName: Record<string, string> = Object.fromEntries(
   Object.entries(researchFigs).map(([path, url]) => [path.split('/').pop()!, url]),
 );
+const newsPhotos = import.meta.glob('../news-photos/*', { eager: true, import: 'default' }) as Record<string, string>;
+const newsPhotoByName: Record<string, string> = Object.fromEntries(
+  Object.entries(newsPhotos).map(([path, url]) => [path.split('/').pop()!, url]),
+);
 
 // ── PKU Brand Colors ──────────────────────────────────────────────────────────
 const C = {
@@ -161,7 +165,7 @@ export default function App() {
           <button onClick={() => go('hero')} style={{ color: C.crimson, fontFamily: serif, fontWeight: 700, fontSize: '1.1rem' }}>
             {content.nav.brand}
           </button>
-          <div className="hidden md:flex gap-6">
+          <div className="hidden lg:flex gap-6">
             {content.nav.items.map(n => (
               <button key={n} onClick={() => go(n.toLowerCase().replace(/\s+/g, '-'))}
                 className="hover:underline"
@@ -170,12 +174,12 @@ export default function App() {
               </button>
             ))}
           </div>
-          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ color: C.crimson }}>
+          <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} style={{ color: C.crimson }}>
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
         {menuOpen && (
-          <div className="md:hidden px-6 pb-4 flex flex-col gap-3" style={{ background: C.white, borderTop: `1px solid ${C.border}` }}>
+          <div className="lg:hidden px-6 pb-4 flex flex-col gap-3" style={{ background: C.white, borderTop: `1px solid ${C.border}` }}>
             {content.nav.items.map(n => (
               <button key={n} onClick={() => go(n.toLowerCase().replace(/\s+/g, '-'))} className="text-left text-sm" style={{ color: C.text, fontFamily: sans }}>
                 {n}
@@ -244,6 +248,41 @@ export default function App() {
               </div>
             );
           })()}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          NEWS
+      ══════════════════════════════════════════════════ */}
+      <section id="news" style={{ background: C.bgLight, padding: '80px 0', scrollMarginTop: 60 }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionTitle>{content.news.heading}</SectionTitle>
+          {content.news.items.map(item => (
+            <article key={item.id} aria-labelledby={`news-${item.id}`}>
+              <time dateTime={item.date} style={{ color: C.crimson, fontFamily: sans, fontSize: '0.875rem', fontWeight: 600 }}>
+                {item.dateLabel}
+              </time>
+              <h3 id={`news-${item.id}`} style={{ fontFamily: serif, fontSize: '1.75rem', fontWeight: 700, lineHeight: 1.3, marginTop: 10, marginBottom: 20 }}>
+                {item.title}
+              </h3>
+              <p style={{ maxWidth: 900, fontSize: '1.05rem', lineHeight: 1.8, marginBottom: 32 }}>
+                {item.body}
+              </p>
+              <div className="grid md:grid-cols-3 gap-6">
+                {item.photos.map(photo => (
+                  <figure key={photo.file} style={{ margin: 0 }}>
+                    <a href={newsPhotoByName[photo.file]} target="_blank" rel="noopener noreferrer" aria-label={`View full photo: ${photo.caption}`}>
+                      <img src={newsPhotoByName[photo.file]} alt={photo.alt} loading="lazy" decoding="async" width={5712} height={4284}
+                        style={{ display: 'block', width: '100%', aspectRatio: '4 / 3', height: 'auto', objectFit: 'cover', objectPosition: photo.position, borderRadius: 8 }} />
+                    </a>
+                    <figcaption style={{ fontFamily: sans, fontSize: '0.875rem', color: C.muted, lineHeight: 1.6, marginTop: 10 }}>
+                      {photo.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

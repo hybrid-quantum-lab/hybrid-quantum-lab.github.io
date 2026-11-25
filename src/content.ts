@@ -35,7 +35,7 @@ export const content = {
   nav: {
     brand: 'Hybrid Quantum Lab',
     // Each item also scrolls to the matching section below.
-    items: ['About', 'Research', 'People', 'Publications', 'Join Us', 'Contact'],
+    items: ['About', 'News', 'Research', 'People', 'Publications', 'Join Us', 'Contact'],
   },
 
   // ── Hero (the banner at the very top) ─────────────────────────────────
@@ -55,6 +55,40 @@ export const content = {
     heading: 'About the Lab',
     // Whole bio. Blank line = new paragraph. Markdown allowed (see top).
     body: `**Hybrid Quantum Lab** at **Peking University**, led by **[Prof. Hong Qiao (乔宏)](#hong-qiao-bio)**. We explore quantum acoustics, superconducting qubits, and hybrid quantum systems. Our research connects individual quanta of sound — *phonons* — with superconducting circuits. We investigate how mechanical systems can store, process, and transmit quantum information, and how their motion probes the fundamental principles of quantum mechanics.`,
+  },
+
+  // News photos live in news-photos/. Add new updates at the top of this list.
+  news: {
+    heading: 'News',
+    items: [
+      {
+        id: 'building-the-lab',
+        date: '2026-11',
+        dateLabel: 'November 2026',
+        title: 'Building the Hybrid Quantum Lab',
+        body: 'The Hybrid Quantum Lab is taking shape at Peking University! New equipment is arriving in crates and boxes as construction of our lab space moves forward. Our team took a moment to celebrate this exciting stage with a few photos among the deliveries and building materials. There is plenty to unpack and set up, and we have a fantastic team to bring it all together. We look forward to filling this space with experiments, ideas, and discoveries in quantum acoustics and hybrid quantum systems.',
+        photos: [
+          {
+            file: 'lab-equipment-arrival.jpg',
+            alt: 'The Hybrid Quantum Lab team standing among crates of newly arrived equipment',
+            caption: 'New equipment arrives at the lab.',
+            position: '50% 80%',
+          },
+          {
+            file: 'team-among-the-crates.jpg',
+            alt: 'Five Hybrid Quantum Lab team members sitting together among equipment crates',
+            caption: 'A great team to bring it all together.',
+            position: '50% 75%',
+          },
+          {
+            file: 'lab-under-construction.jpg',
+            alt: 'The team in the lab space under construction, with exposed framing and building materials',
+            caption: 'Our future lab space takes shape.',
+            position: '50% 75%',
+          },
+        ],
+      },
+    ],
   },
 
   // Add members by copying an entry below. Photos can be URLs or research-figs filenames.
